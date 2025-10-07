@@ -7,16 +7,25 @@
   const resultCard = document.getElementById('resultCard');
   const resultArea = document.getElementById('resultArea');
 
+  
   let data = null;
   try {
-    const res = await fetch('assets/data.json', { cache: 'no-store' });
+    const res = await fetch('assets/data.json'); // removed { cache: 'no-store' }
     data = await res.json();
   } catch {
-    alert('Failed to load data.json');
-    return;
+    try {
+      const tag = document.getElementById('__DATA_FALLBACK__');
+      if (tag && tag.textContent) {
+        data = JSON.parse(tag.textContent);
+      } else {
+        throw new Error('No inline data');
+      }
+    } catch (e) {
+      alert('Failed to load data.json');
+      return;
+    }
   }
-
-  const EQUIPS = data.equipment_order || [];
+const EQUIPS = data.equipment_order || [];
   const vehicles = (data.vehicle_list || Object.keys(data.vehicles)).sort((a,b)=> (parseInt(a)||0)-(parseInt(b)||0));
   const groupA = new Set((data.groups && data.groups.A) || []);
   const groupB = new Set((data.groups && data.groups.B) || []);
