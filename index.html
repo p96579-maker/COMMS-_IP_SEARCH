@@ -6,6 +6,9 @@
   <title>COMMS System IP Search</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
 </head>
 <body class="bg-slate-50 text-slate-800">
 <header class="bg-white/80 backdrop-blur border-b">
@@ -54,5 +57,6 @@
 </main>
 
 <script src="app.js"></script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}</script>
 </body>
 </html>
